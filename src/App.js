@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import moment from 'moment'
+import moment, { duration } from 'moment'
 import { Well } from 'react-bootstrap'
 
 class App extends Component {
@@ -57,11 +57,13 @@ class App extends Component {
     const time2 = moment(time, 'h:mm').format('HH:mm')
     const start = '11:01'
     const end = '12:00'
-    const result = moment(
-      moment(end, 'h:mm').diff(moment(start, 'h:mm')),
-      'x'
-    ).format()
-
+    const result =
+      moment(end, 'h:mm').diff(moment(start, 'h:mm'), 'h') +
+      ':' +
+      moment(end, 'h:mm').diff(moment(start, 'h:mm'), 'm')
+    const start2 = moment('11:02', 'h:mm')
+    const end2 = moment('12:00', 'h:mm')
+    const result2 = moment.duration(start2.diff(end2)).minutes()
     let plusone = moment()
       .add(1, 'h')
       .format()
@@ -69,6 +71,7 @@ class App extends Component {
     console.log(time2)
     console.log(time)
     console.log(result)
+    console.log(result2)
 
     return (
       <div>
