@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import moment from 'moment'
+import { Well } from 'react-bootstrap'
 
 class App extends Component {
   render() {
@@ -45,52 +46,59 @@ class App extends Component {
         minutes.substr(-2)
       return formattedTime
     }
-    const timestamp = 3966000
+
+    const timestamp = moment().unix()
 
     const currentTime = moment().format('HH:mm:ss')
     const day = moment.unix(timestamp)
     const dayJS = timestampToTime(timestamp)
     const dayUTCJS = timestampToTimeUTC(timestamp)
     const time = moment('12:30', 'h:mm').format('HH:mm')
-    const time2 = moment(time, 'hmm').format('HH:mm')
-
+    const time2 = moment(time, 'h:mm').format('HH:mm')
     const start = '11:01'
     const end = '12:00'
-    const result = moment(end, 'hmm').diff(moment(start, 'hmm'))
-    console.log(moment(end, 'hmm').format('HH:mm'))
+    const result = moment(
+      moment(end, 'h:mm').diff(moment(start, 'h:mm')),
+      'x'
+    ).format()
+
+    let plusone = moment()
+      .add(1, 'h')
+      .format()
+    console.log(moment(end, 'h:mm').format('HH:mm'))
     console.log(time2)
     console.log(time)
+    console.log(result)
 
     return (
-      <div className='App'>
-        <div style={{ float: 'right' }}>
-          The Current Time according to moment
-          is...........................................: {currentTime}
-        </div>
-        <div style={{ float: 'right' }}>
+      <div>
+        <Well>The Current Time according to moment is {currentTime}</Well>
+        <Well>The Current Date according to moment is {moment().format()}</Well>
+        <Well>
+          The Current Date plus 1 hour according to moment is
+          {plusone}
+        </Well>
+        <Well>
+          The Current TimaStamp according to moment is {moment().unix()}
+        </Well>
+        <Well>
           The date and time representing timestamp: {timestamp} accorting to
           moment is: {day.format('YYYY-M-D HH:mm')}
-        </div>
-        <div style={{ float: 'right' }}>
+        </Well>
+        <Well>
           The date and time representing timestamp: {timestamp} accorting to
           moment with .utc() method is: {day.utc().format('YYYY-M-D HH:mm')}
-        </div>
-        <div style={{ float: 'right' }}>
+        </Well>
+        <Well>
           The date and time representing timestamp: {timestamp} accorting to JS
-          <code>new Date()</code> is: {dayJS}
-        </div>
-        <div style={{ float: 'right' }}>
+          <pre>new Date()</pre> is: {dayJS}
+        </Well>
+        <Well>
           The date and time representing timestamp: {timestamp} accorting to JS
-          <code>new Date()</code> in UTC is: {dayUTCJS}
-        </div>
-        <div style={{ float: 'right' }}>
-          The Current Time plus 1 hour
-          is........................................: {time}
-        </div>
-        <div style={{ float: 'right' }}>
-          The Current Time plus 1 hour
-          is........................................: {time2}
-        </div>
+          <pre>new Date()</pre> in UTC is: {dayUTCJS}
+        </Well>
+        <Well>The Current Time is {time}</Well>
+        <Well>The Current Time plus 1 hour is {time2}</Well>
       </div>
     )
   }
