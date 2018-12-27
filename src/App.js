@@ -10,6 +10,14 @@ class App extends Component {
     let m = moment(time, 'h:mm').minute()
     return duration({ h: h, m: m }).asMilliseconds()
   }
+  msToTime = ms => {
+    return (
+      duration(ms, 'milliseconds').hours() +
+      ':' +
+      duration(ms, 'milliseconds').minutes()
+    )
+  }
+
   render() {
     const timestamp = moment().unix() //note to myself, dont forget about leap years and time change
     console.log(timestamp)
@@ -18,6 +26,7 @@ class App extends Component {
     console.log(moment('123', 'hmm').format('HH:mm'))
     console.log(moment('123', 'hmm').hour())
     this.timeToms('12:30')
+    console.log(this.msToTime(45190101))
     console.log(this.timeToms('12:30'))
     return (
       <div>
