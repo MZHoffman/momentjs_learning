@@ -2,111 +2,27 @@ import React, { Component } from 'react'
 import './App.css'
 import moment, { duration } from 'moment'
 import { Well } from 'react-bootstrap'
+import { format } from 'url'
 
 class App extends Component {
+  timeToms = time => {
+    let h = moment(time, 'h:mm').hour()
+    let m = moment(time, 'h:mm').minute()
+    return duration({ h: h, m: m }).asMilliseconds()
+  }
   render() {
-    function timestampToTime(timestamp) {
-      let date = new Date(timestamp * 1000)
-      console.log(date)
-
-      let year = date.getFullYear()
-      let month = date.getMonth() + 1
-      let day = date.getDate()
-      let hours = '0' + date.getHours()
-      let minutes = '0' + date.getMinutes()
-      let formattedTime =
-        year +
-        '-' +
-        month +
-        '-' +
-        day +
-        ' ' +
-        hours.substr(-2) +
-        ':' +
-        minutes.substr(-2)
-      return formattedTime
-    }
-    function timestampToTimeUTC(timestamp) {
-      let date = new Date(timestamp * 1000)
-      console.log(new Date(timestamp * 1000))
-      let year = date.getUTCFullYear()
-      let month = date.getUTCMonth() + 1
-      let day = date.getUTCDate()
-      let hours = '0' + date.getUTCHours()
-      let minutes = '0' + date.getUTCMinutes()
-      let formattedTime =
-        year +
-        '-' +
-        month +
-        '-' +
-        day +
-        ' ' +
-        hours.substr(-2) +
-        ':' +
-        minutes.substr(-2)
-      return formattedTime
-    }
-
-    const timestamp = moment().unix()
-
-    const currentTime = moment().format('HH:mm:ss')
-    const day = moment.unix(timestamp)
-    const dayJS = timestampToTime(timestamp)
-    const dayUTCJS = timestampToTimeUTC(timestamp)
-    const time = moment('12:30', 'h:mm').format('HH:mm')
-    const time2 = moment(time, 'h:mm').format('HH:mm')
-    const start = '11:01'
-    const end = '12:00'
-    const result =
-      moment(end, 'h:mm').diff(moment(start, 'h:mm'), 'h') +
-      ':' +
-      moment(end, 'h:mm').diff(moment(start, 'h:mm'), 'm')
-    const start2 = moment('11:02', 'h:mm')
-    const end2 = moment('12:00', 'h:mm').add(1, 'h')
-    let result2 = duration(start2.diff(end2)).add(1, 'h')
-    result2 = result2.add(1, 'h')
-    let plusone = moment()
-      .add(1, 'h')
-      .format()
-    console.log(moment(end, 'h:mm').format('HH:mm'))
-    console.log(time2)
-    console.log(time)
-    console.log(result)
-    console.log(result2)
-    console.log(end2)
-    console.log(start2)
-    console.log(duration(timestamp, 'milliseconds'))
-    console.log(duration(timestamp).minutes())
-
+    const timestamp = moment().unix() //note to myself, dont forget about leap years and time change
+    console.log(timestamp)
+    console.log(duration(timestamp, 'milliseconds').hours())
+    console.log(duration(timestamp, 'milliseconds').minutes())
+    console.log(moment('123', 'hmm').format('HH:mm'))
+    console.log(moment('123', 'hmm').hour())
+    this.timeToms('12:30')
+    console.log(this.timeToms('12:30'))
     return (
       <div>
-        <Well>The Current Time according to moment is {currentTime}</Well>
-        <Well>The Current Date according to moment is {moment().format()}</Well>
-        <Well>
-          The Current Date plus 1 hour according to moment is
-          {plusone}
-        </Well>
-        <Well>
-          The Current TimaStamp according to moment is {moment().unix()}
-        </Well>
-        <Well>
-          The date and time representing timestamp: {timestamp} accorting to
-          moment is: {day.format('YYYY-M-D HH:mm')}
-        </Well>
-        <Well>
-          The date and time representing timestamp: {timestamp} accorting to
-          moment with .utc() method is: {day.utc().format('YYYY-M-D HH:mm')}
-        </Well>
-        <Well>
-          The date and time representing timestamp: {timestamp} accorting to JS
-          <pre>new Date()</pre> is: {dayJS}
-        </Well>
-        <Well>
-          The date and time representing timestamp: {timestamp} accorting to JS
-          <pre>new Date()</pre> in UTC is: {dayUTCJS}
-        </Well>
-        <Well>The Current Time is {time}</Well>
-        <Well>The Current Time plus 1 hour is {time2}</Well>
+        <Well>The Current Time is </Well>
+        <Well>The Current Time plus 1 hour is </Well>
       </div>
     )
   }
