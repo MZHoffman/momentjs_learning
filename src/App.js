@@ -62,8 +62,9 @@ class App extends Component {
       ':' +
       moment(end, 'h:mm').diff(moment(start, 'h:mm'), 'm')
     const start2 = moment('11:02', 'h:mm')
-    const end2 = moment('12:00', 'h:mm')
-    const result2 = moment.duration(start2.diff(end2)).minutes()
+    const end2 = moment('12:00', 'h:mm').add(1, 'h')
+    let result2 = duration(start2.diff(end2)).add(1, 'h')
+    result2 = result2.add(1, 'h')
     let plusone = moment()
       .add(1, 'h')
       .format()
@@ -72,6 +73,10 @@ class App extends Component {
     console.log(time)
     console.log(result)
     console.log(result2)
+    console.log(end2)
+    console.log(start2)
+    console.log(duration(timestamp, 'milliseconds'))
+    console.log(duration(timestamp).minutes())
 
     return (
       <div>
